@@ -44,6 +44,7 @@ const [
   PowerAdmin,
   RoleAdmin,
   UserAdmin,
+  OrderInfo,
 ] = [
   () => import("../pages/ErrorPages/404"),
   () => import("../pages/ErrorPages/401"),
@@ -53,6 +54,7 @@ const [
   () => import("../pages/System/PowerAdmin"),
   () => import("../pages/System/RoleAdmin"),
   () => import("../pages/System/UserAdmin"),
+  () => import("../pages/Orders/OrderInfo"),
 ].map((item) => {
   return loadable(item as any, {
     fallback: <Loading />,
@@ -130,6 +132,14 @@ function RouterCom(): JSX.Element {
           element={
             <AuthNoPower>
               <UserAdmin />
+            </AuthNoPower>
+          }
+        />
+        <Route
+          path="orders/orderInfo"
+          element={
+            <AuthNoPower>
+              <OrderInfo />
             </AuthNoPower>
           }
         />

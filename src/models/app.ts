@@ -82,6 +82,7 @@ export default {
      * @param: {*} params
      * **/
     async setUserInfo(params: UserInfo) {
+      console.log(params, '设置用户信息')
       dispatch.app.reducerUserInfo(params);
       return "success";
     },

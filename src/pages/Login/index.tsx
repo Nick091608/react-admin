@@ -166,6 +166,7 @@ function LoginContainer(): JSX.Element {
           "userinfo",
           tools.compile(JSON.stringify(res.data))
         );
+        console.log(res.data, 'login')
         await dispatch.app.setUserInfo(res.data);
         navigate("/"); // 跳转到主页
       } else {

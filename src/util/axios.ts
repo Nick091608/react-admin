@@ -9,6 +9,7 @@ import axios from "axios";
  * 正式打包需要去掉
  * */
 import Mock from "mockjs";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import mock from "../../mock/app-data.js";
 Mock.mock(/\/api.*/, (options: any) => {

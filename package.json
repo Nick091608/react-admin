@@ -13,7 +13,7 @@
     "@ant-design/icons": "^5.1.0",
     "@loadable/component": "^5.15.3",
     "@rematch/core": "^2.2.0",
-    "antd": "4.x",
+    "antd": "^5.7.0",
     "axios": "^1.4.0",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",

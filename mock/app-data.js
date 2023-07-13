@@ -68,6 +68,30 @@ const users = [
   },
 ];
 
+// 订单管理
+const orders = [
+  {
+    id: 7,
+    title: "订单管理",
+    icon: "icon-setting",
+    url: "/orders",
+    parent: null,
+    desc: "订单管理目录父级",
+    sorts: 1,
+    conditions: 1,
+  },
+  {
+    id: 8,
+    title: "订单信息",
+    icon: "icon-setting",
+    url: "/orders/orderInfo",
+    parent: 7,
+    desc: "订单信息目录",
+    sorts: 0,
+    conditions: 1,
+  },
+]
+
 // 所有的菜单数据
 const menus = [
   {
@@ -130,6 +154,7 @@ const menus = [
     sorts: 3,
     conditions: 1,
   },
+  ...orders
 ];
 
 // 所有的权限数据
@@ -315,6 +340,8 @@ const roles = [
       { menuId: 4, powers: [6, 7, 8, 9, 18] },
       { menuId: 5, powers: [10, 11, 12, 13] },
       { menuId: 6, powers: [14, 15, 16, 17] },
+      { menuId: 7, powers: [14, 15, 16, 17] },  // menuId，控制菜单栏显示的关键，对应menus的 id
+      { menuId: 8, powers: [14, 15, 16, 17] },
     ],
   },
   {
