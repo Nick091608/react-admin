@@ -38,4 +38,19 @@ export default defineConfig({
       },
     ],
   },
+  server: {
+    host: 'localhost',
+    https: false,
+    proxy: {
+      '^/api': {
+        target: 'http://b.ananjj.top',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+    // 是否开启自动刷新
+    hmr: true,
+    // 是否开启自动打开浏览器
+    open: true,
+  },
 })

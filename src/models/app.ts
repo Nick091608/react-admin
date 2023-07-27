@@ -29,10 +29,11 @@ export default {
   state: defaultState,
   reducers: {
     reducerUserInfo(state: AppState, payload: UserInfo) {
+      console.log(state, payload);
       return {
         ...state,
         userinfo: payload,
-        powersCode: payload.powers.map((item) => item.code),
+        powersCode: payload.powers?.map((item) => item.code),
       };
     },
     reducerLogout(state: AppState) {
@@ -82,7 +83,6 @@ export default {
      * @param: {*} params
      * **/
     async setUserInfo(params: UserInfo) {
-      console.log(params, '设置用户信息')
       dispatch.app.reducerUserInfo(params);
       return "success";
     },

@@ -1,53 +1,56 @@
-/** 对axios做一些配置 **/
+import axios, { AxiosResponse, InternalAxiosRequestConfig } from "axios";
+// import { useUserStore } from "@/stores/user";
+// import router from "@/router";
+import { message } from "antd";
 
-import { baseUrl } from "../config";
-import axios from "axios";
+// const userStore = useUserStore();
 
-/**
- * MOCK模拟数据
- * 不需要下面这些mock配置，仅本地用
- * 正式打包需要去掉
- * */
-import Mock from "mockjs";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import mock from "../../mock/app-data.js";
-Mock.mock(/\/api.*/, (options: any) => {
-  const res = mock(options);
-  return res;
+const service = axios.create({
+  method: "GET",
+  baseURL: "/api", //.env中的VITE_APP_API参数
+  headers: {
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  timeout: 10000, //超时时间
 });
 
-/**
- * 根据不同环境设置不同的请求地址
- * 把返回值赋给axios.defaults.baseURL即可
- */
-// function setBaseUrl(){
-//   switch(process.env.NODE_ENV){
-//     case 'development': return 'http://development.com';
-//     case 'test': return 'http://test.com';
-//     case 'production' : return 'https://production.com';
-//     default : return baseUrl;
-//   }
-// }
+service.interceptors.request.use(
+  (config: InternalAxiosRequestConfig<any>) => {
+    // config.headers["token"] = "";
+    return config;
+  },
+  (error) => {
+    console.log(error);
+  }
+);
 
-// 默认基础请求地址
-axios.defaults.baseURL = baseUrl;
-// 请求是否带上cookie
-axios.defaults.withCredentials = false;
-// 对返回的结果做处理
-axios.interceptors.response.use((response) => {
-  // const code = response?.data?.code ?? 200;
-  // 没有权限，登录超时，登出，跳转登录
-  // if (code === 3) {
-  //   message.error("登录超时，请重新登录");
-  //   sessionStorage.removeItem("userinfo");
-  //   setTimeout(() => {
-  //     window.location.href = "/";
-  //   }, 1500);
-  // } else {
-  //   return response.data;
-  // }
-  return response.data;
-});
+service.interceptors.response.use(
+  (res: AxiosResponse<any, any>) => {
+    const { data } = res;
+    if (data.status != 200) {
+      message.error(data.msg);
+      // 登录过期 重定向到 登录
+      // if (data.code === 403) {
+      //   userStore.setToken(""); // 清空 token
+      //   router.replace({
+      //     path: "/login",
+      //   })
+      // }
+      return Promise.reject(data);
+    }
+    return data;
+  },
+  (error) => {
+    message.error(error.message);
+    // 登录过期 重定向到 登录
+    // if (error.response.data?.code === 403) {
+    //   userStore.setToken(""); // 清空 token
+    //   router.replace({
+    //     path: "/login",
+    //   })
+    // }
+    return Promise.reject(error);
+  }
+);
 
-export default axios;
+export default service;

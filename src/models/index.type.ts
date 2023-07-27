@@ -66,9 +66,9 @@ export interface UserInfo {
 export interface UserBasicInfo {
   id: number; // ID
   username: string; // 用户名
-  password: string | number; // 密码
+  name: string; // 用户名
+  enable: boolean;
   phone: string | number; // 手机
-  email: string; // 邮箱
   desc: string; // 描述
   conditions: number; // 状态 1启用，-1禁用
   roles: number[]; // 拥有的所有角色ID

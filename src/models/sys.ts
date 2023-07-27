@@ -7,6 +7,11 @@ import axios from "@/util/axios"; // 自己写的工具函数，封装了请求�
 import qs from "qs";
 import { message } from "antd";
 import { Dispatch } from "@/store";
+import {
+  getRoleById as getRoleByIdMock,
+  getMenusById as getMenusByIdMock,
+  getPowerById as getPowerByIdMock,
+} from "../../mock/app-data.js";
 
 import {
   Menu,
@@ -65,13 +70,8 @@ export default {
      * @param {number} id 可以是一个数字也可以是一个数组
      * **/
     async getMenusById(params: { id: number | number[] }) {
-      try {
-        const res: Res = await axios.post(`/api/getMenusById`, params);
-        return res;
-      } catch (err) {
-        message.error("网络错误，请重试");
-      }
-      return;
+      const res: Res = getMenusByIdMock(params);
+      return Promise.resolve(res);
     },
 
     /**
@@ -132,13 +132,8 @@ export default {
      * @param id 可以是一个数字也可以是一个数组
      * **/
     async getPowerById(params: { id: number | number[] }) {
-      try {
-        const res: Res = await axios.post(`/api/getPowerById`, params);
-        return res;
-      } catch (err) {
-        message.error("网络错误，请重试");
-      }
-      return;
+      const res: Res = getPowerByIdMock(params);
+      return Promise.resolve(res);
     },
 
     /** 获取所有角色 **/
@@ -219,13 +214,8 @@ export default {
      * @return 返回值是数组
      * **/
     async getRoleById(params: { id: number | number[] }) {
-      try {
-        const res: Res = await axios.post(`/api/getRoleById`, params);
-        return res;
-      } catch (err) {
-        message.error("网络错误，请重试");
-      }
-      return;
+      const res: Res = getRoleByIdMock(params);
+      return Promise.resolve(res);
     },
 
     /**

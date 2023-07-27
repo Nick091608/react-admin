@@ -36,42 +36,12 @@ const users = [
     conditions: 1,
     roles: [2],
   },
-  {
-    id: 3,
-    username: "user",
-    password: "123456",
-    phone: "13600000001",
-    email: "user@react.com",
-    desc: "普通管理员3",
-    conditions: 1,
-    roles: [2],
-  },
-  {
-    id: 4,
-    username: "user",
-    password: "123456",
-    phone: "13600000001",
-    email: "user@react.com",
-    desc: "普通管理员4",
-    conditions: 1,
-    roles: [2],
-  },
-  {
-    id: 5,
-    username: "user",
-    password: "123456",
-    phone: "13600000001",
-    email: "user@react.com",
-    desc: "普通管理员5",
-    conditions: 1,
-    roles: [2],
-  },
 ];
 
 // 订单管理
 const orders = [
   {
-    id: 7,
+    id: 8,
     title: "订单管理",
     icon: "icon-setting",
     url: "/orders",
@@ -81,11 +51,11 @@ const orders = [
     conditions: 1,
   },
   {
-    id: 8,
+    id: 9,
     title: "订单信息",
     icon: "icon-setting",
     url: "/orders/orderInfo",
-    parent: 7,
+    parent: 8,
     desc: "订单信息目录",
     sorts: 0,
     conditions: 1,
@@ -124,34 +94,44 @@ const menus = [
     sorts: 0,
     conditions: 1,
   },
+  // {
+  //   id: 4,
+  //   title: "角色管理",
+  //   icon: "icon-team",
+  //   url: "/system/roleadmin",
+  //   parent: 2,
+  //   desc: "系统管理/角色管理",
+  //   sorts: 1,
+  //   conditions: 1,
+  // },
+  // {
+  //   id: 5,
+  //   title: "权限管理",
+  //   icon: "icon-safetycertificate",
+  //   url: "/system/poweradmin",
+  //   parent: 2,
+  //   desc: "系统管理/权限管理",
+  //   sorts: 2,
+  //   conditions: 1,
+  // },
+  // {
+  //   id: 6,
+  //   title: "菜单管理",
+  //   icon: "icon-appstore",
+  //   url: "/system/menuadmin",
+  //   parent: 2,
+  //   desc: "系统管理/菜单管理",
+  //   sorts: 3,
+  //   conditions: 1,
+  // },
   {
-    id: 4,
-    title: "角色管理",
-    icon: "icon-team",
-    url: "/system/roleadmin",
+    id: 7,
+    title: "VIP用户管理",
+    icon: "icon-user",
+    url: "/system/vipuseradmin",
     parent: 2,
-    desc: "系统管理/角色管理",
-    sorts: 1,
-    conditions: 1,
-  },
-  {
-    id: 5,
-    title: "权限管理",
-    icon: "icon-safetycertificate",
-    url: "/system/poweradmin",
-    parent: 2,
-    desc: "系统管理/权限管理",
-    sorts: 2,
-    conditions: 1,
-  },
-  {
-    id: 6,
-    title: "菜单管理",
-    icon: "icon-appstore",
-    url: "/system/menuadmin",
-    parent: 2,
-    desc: "系统管理/菜单管理",
-    sorts: 3,
+    desc: "系统管理/VIP用户管理",
+    sorts: 4,
     conditions: 1,
   },
   ...orders
@@ -328,7 +308,7 @@ const powers = [
 // 所有的角色数据
 const roles = [
   {
-    id: 1,
+    id: 0,
     title: "超级管理员",
     desc: "超级管理员拥有所有权限",
     sorts: 1,
@@ -342,10 +322,11 @@ const roles = [
       { menuId: 6, powers: [14, 15, 16, 17] },
       { menuId: 7, powers: [14, 15, 16, 17] },  // menuId，控制菜单栏显示的关键，对应menus的 id
       { menuId: 8, powers: [14, 15, 16, 17] },
+      { menuId: 9, powers: [14, 15, 16, 17] },
     ],
   },
   {
-    id: 2,
+    id: 1,
     title: "普通管理员",
     desc: "普通管理员",
     sorts: 2,
@@ -357,21 +338,6 @@ const roles = [
       { menuId: 4, powers: [6, 7, 8, 18] },
       { menuId: 5, powers: [10, 11, 12] },
       { menuId: 6, powers: [14, 15, 16] },
-    ],
-  },
-  {
-    id: 3,
-    title: "运维人员",
-    desc: "运维人员不能删除对象",
-    sorts: 3,
-    conditions: 1,
-    menuAndPowers: [
-      { menuId: 1, powers: [] },
-      { menuId: 2, powers: [] },
-      { menuId: 3, powers: [3] },
-      { menuId: 4, powers: [7, 8] },
-      { menuId: 5, powers: [11, 12] },
-      { menuId: 6, powers: [15, 16] },
     ],
   },
 ];
@@ -410,7 +376,7 @@ const getMenus = function (p) {
   return { status: 200, data: menus, message: "success" };
 };
 // 获取菜单（根据ID）
-const getMenusById = function (p) {
+export const getMenusById = function (p) {
   // const p = JSON.parse(request.body);
   let res = [];
   if (p.id instanceof Array) {
@@ -490,7 +456,7 @@ const getPowerByMenuId = function (p) {
   }
 };
 // 根据权限ID查询对应的权限
-const getPowerById = function (p) {
+export const getPowerById = function (p) {
   // const p = JSON.parse(request.body);
   let res = [];
   if (p.id instanceof Array) {
@@ -569,7 +535,7 @@ const getAllRoles = function (p) {
   return { status: 200, data: roles, message: "success" };
 };
 // 查询角色（通过角色ID）
-const getRoleById = function (p) {
+export const getRoleById = function (p) {
   // const p = JSON.parse(request.body);
   let res = [];
   if (p.id instanceof Array) {
